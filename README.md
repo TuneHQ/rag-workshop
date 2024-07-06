@@ -1,3 +1,5 @@
+NOTE: YOU will see alot of types declared as any, this is done due to time limitations of workshop, you should always use proper types.
+
 # Boilerplate Code
 
 This repository contains prebuilt simple chat interface and Hello World GET and POST API examples.

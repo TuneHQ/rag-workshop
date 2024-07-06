@@ -12,7 +12,7 @@ export async function getSitemapUrls(sitemapUrl: string) {
     const parser = new xml2js.Parser();
     const result = await parser.parseStringPromise(text);
 
-    const urls = result.urlset.url.map((entry) => entry.loc[0]);
+    const urls = result.urlset.url.map((entry: any) => entry.loc[0]);
 
     return urls;
   } catch (error) {
