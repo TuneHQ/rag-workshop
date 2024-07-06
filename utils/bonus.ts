@@ -55,3 +55,7 @@ export function SplitLargeChunks(text: string, maxChunkSize: number) {
   const content = text?.match(new RegExp(`.{1,${maxChunkSize}}`, "g"));
   return content;
 }
+
+export function removeSpaces(text) {
+  return text.replace(/\s+/g, " ").trim();
+}
