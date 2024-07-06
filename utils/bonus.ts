@@ -1,3 +1,6 @@
+const { JSDOM } = require("jsdom");
+const xml2js = require("xml2js");
+
 export async function getSitemapUrls(sitemapUrl: string) {
   try {
     const response = await fetch(sitemapUrl);
@@ -6,18 +9,10 @@ export async function getSitemapUrls(sitemapUrl: string) {
     }
 
     const text = await response.text();
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(text, "application/xml");
+    const parser = new xml2js.Parser();
+    const result = await parser.parseStringPromise(text);
 
-    const urlElements = xmlDoc.getElementsByTagName("url");
-    const urls = [];
-
-    for (let i = 0; i < urlElements.length; i++) {
-      const locElement = urlElements[i].getElementsByTagName("loc")[0];
-      if (locElement) {
-        urls.push(locElement.textContent);
-      }
-    }
+    const urls = result.urlset.url.map((entry) => entry.loc[0]);
 
     return urls;
   } catch (error) {
@@ -34,10 +29,8 @@ export async function getWebsiteUrls(baseUrl: string) {
     }
 
     const text = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
-
-    const linkElements = doc.getElementsByTagName("a");
+    const dom = new JSDOM(text);
+    const linkElements = dom.window.document.getElementsByTagName("a");
     const urls = new Set();
 
     for (let i = 0; i < linkElements.length; i++) {
@@ -56,4 +49,9 @@ export async function getWebsiteUrls(baseUrl: string) {
     console.error("Error fetching or parsing website:", error);
     return [];
   }
+}
+
+export function SplitLargeChunks(text: string, maxChunkSize: number) {
+  const content = text?.match(new RegExp(`.{1,${maxChunkSize}}`, "g"));
+  return content;
 }
