@@ -56,6 +56,36 @@ export function SplitLargeChunks(text: string, maxChunkSize: number) {
   return content;
 }
 
-export function removeSpaces(text) {
+export function removeSpaces(text: any) {
   return text.replace(/\s+/g, " ").trim();
 }
+
+export const streamText = async (streamTxt: string) => {
+  console.log("streamText", streamTxt);
+  const stream = new ReadableStream({
+    start(controller) {
+      function pushData() {
+        controller.enqueue(
+          "data: " +
+            JSON.stringify({
+              id: "id",
+              object: "object",
+              model: "model",
+              choices: [
+                {
+                  index: 0,
+                  delta: {
+                    content: streamTxt,
+                  },
+                  finish_reason: "stop",
+                },
+              ],
+            })
+        );
+        controller.close();
+      }
+      pushData();
+    },
+  });
+  return stream;
+};
