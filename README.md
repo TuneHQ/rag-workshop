@@ -2,11 +2,35 @@
 
 This repository contains prebuilt simple chat interface and Hello World GET and POST API examples.
 
+## What we'll build
+
+An RAG application which can ingest and search through a given documentation and answers questions. The app will be a chat UI that will use the [Marvel Universe wiki](https://marvelcinematicuniverse.fandom.com/wiki/Marvel_Cinematic_Universe_Wiki) as data source.  
+
+
+## Installation Setup
+
+#### 1. Install Node.js and Next.js
+
+Node.Js (>= v18) : [Installation](https://nodejs.org/en/download/package-manager)  
+Next.js: [Installation](https://nextjs.org/docs/getting-started/installation)
+
+If you're using Windows, a WSL setup too may be needed.    
+
+
+#### 2. Get a free account on Supabase
+
+Link: supabase.com
+
+- We need a Postgresql database with the extension `pgvector` installed. 
+- Create account on supabase.com gives us a free Postgresql instance with pg_vector
+- Or install the db locally with the extension
+
+
 ## Configuration
 
 Using `.env.example` as a template create a `.env` file with the following values:
 
-`CHAT_API_KEY` - API Key from the Model provider. For Tune AI you can obtain it from Profile > Access Keys section (check [docs](https://studio.tune.app/docs/concepts/auth#access-keys) for detailed steps)
+`CHAT_API_KEY` - API Key from the Model provider. For Tune AI you can obtain it from `Profile > Access Keys` section (check [docs](https://studio.tune.app/docs/concepts/auth#access-keys) for detailed steps)
 
 `CHAT_API_HOST` - If using Tune Studio, set this to `https://proxy.tune.app` (first value)
 
