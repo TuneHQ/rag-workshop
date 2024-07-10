@@ -6,8 +6,7 @@ This repository contains prebuilt simple chat interface and Hello World GET and 
 
 ## What we'll build
 
-An RAG application which can ingest and search through a given documentation and answers questions. The app will be a chat UI that will use the [Marvel Universe wiki](https://marvelcinematicuniverse.fandom.com/wiki/Marvel_Cinematic_Universe_Wiki) as data source.  
-
+An RAG application which can ingest and search through a given documentation and answers questions. The app will be a chat UI that will use the [Marvel Universe wiki](https://marvelcinematicuniverse.fandom.com/wiki/Marvel_Cinematic_Universe_Wiki) as data source.
 
 ## Installation Setup
 
@@ -16,17 +15,15 @@ An RAG application which can ingest and search through a given documentation and
 Node.Js (>= v18) : [Installation](https://nodejs.org/en/download/package-manager)  
 Next.js: [Installation](https://nextjs.org/docs/getting-started/installation)
 
-If you're using Windows, a WSL setup too may be needed.    
-
+If you're using Windows, a WSL setup too may be needed.
 
 #### 2. Get a free account on Supabase
 
 Link: supabase.com
 
-- We need a Postgresql database with the extension `pgvector` installed. 
+- We need a Postgresql database with the extension `pgvector` installed.
 - Create account on supabase.com gives us a free Postgresql instance with pg_vector
 - Or install the db locally with the extension
-
 
 ## Configuration
 
@@ -36,7 +33,7 @@ Using `.env.example` as a template create a `.env` file with the following value
 
 `CHAT_API_HOST` - If using Tune Studio, set this to `https://proxy.tune.app` (first value)
 
-`EMBEDDING_ENDPOINT` - If using Tune Studio, set this to `https://proxy.tune.app/v1/embedding` (first value)
+`EMBEDDING_ENDPOINT` - If using Tune Studio, set this to `https://proxy.tune.app/v1/embeddings` (first value)
 
 `MODEL` - If using Tune Studio, set this to `rohan/tune-gpt-4o` (first value)
 
@@ -59,18 +56,18 @@ DATABASE_URL=postgresql://postgres.---:---@aws-0-ap-south-1.pooler.supabase.com:
 
 1. Install the required dependencies using
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 1. You should be able to run the Next.js server using
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
-  Go to `http://localhost:3000` to see the chat interface.
-  There should not be any errors in the console or on the page.
+Go to `http://localhost:3000` to see the chat interface.
+There should not be any errors in the console or on the page.
 
 ## Database Setup
 
@@ -142,14 +139,14 @@ export const llmStream = async ({
   max_tokens,
   is_recursive = false,
 }: {
-  stream: boolean;
+  stream: boolean,
   messages: {
-    role: string;
-    content: string;
-  }[];
-  max_tokens?: number;
-  temperature?: number;
-  is_recursive?: boolean;
+    role: string,
+    content: string,
+  }[],
+  max_tokens?: number,
+  temperature?: number,
+  is_recursive?: boolean,
 }): Promise<any> => {
   const resp = await fetch(process.env.CHAT_API_HOST + "/chat/completions", {
     method: "POST",
@@ -196,15 +193,15 @@ export async function POST(req: Request) {
 Defines two functions, `generateEmbeddings` and `saveEmbedding` to generate and save embeddings respectively.
 
 - `generateEmbeddings` function: takes in the page content as input, uses the
-embedding model API to generate embeddings, and returns the embeddings.
+  embedding model API to generate embeddings, and returns the embeddings.
 - `saveEmbedding` function: takes in the page content and the embeddings as input,
-and saves the embeddings to the database. Note that the `embedding` column's data type is `VECTOR()`.
+  and saves the embeddings to the database. Note that the `embedding` column's data type is `VECTOR()`.
 
 ```javascript
 const generateEmbeddings = async (pageContent: {
-  title: string;
-  url: string;
-  content: string;
+  title: string,
+  url: string,
+  content: string,
 }) => {
   const response = await fetch(`${process.env.EMBEDDING_ENDPOINT}`, {
     method: "POST",
@@ -222,9 +219,9 @@ const generateEmbeddings = async (pageContent: {
 
 const saveEmbedding = async (
   pageContent: {
-    title: string;
-    url: string;
-    content: string;
+    title: string,
+    url: string,
+    content: string,
   },
   embedding: any
 ) => {
@@ -313,7 +310,7 @@ export const getSimilarDocuments = async (query: string) => {
     match_count: 3,
   });
   return data?.data?.map(
-    (doc: { title: string; url: string; content: string; embedding: any }) => {
+    (doc: { title: string, url: string, content: string, embedding: any }) => {
       return doc.content;
     }
   );
