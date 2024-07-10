@@ -11,7 +11,7 @@ Update the `.env` file with the following values:
 ```env
 CHAT_API_KEY=sk-tune-tese
 CHAT_API_HOST=https://proxy.tune.app // or https://api.openai.com/v1
-EMBEDDING_ENDPOINT=https://proxy.tune.app/v1/embedding // or https://api.openai.com/v1/embeddings
+EMBEDDING_ENDPOINT=https://proxy.tune.app/v1/embeddings // or https://api.openai.com/v1/embeddings
 MODEL=rohan/tune-gpt-4o // or gpt-4o
 EMBEDDING_MODEL=openai/text-embedding-ada-002 // or text-embedding-ada-002
 NEXT_PUBLIC_SUPABASE_URL=https://---.supabase.co
